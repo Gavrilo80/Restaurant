@@ -1,0 +1,3 @@
+node_modules
+mysqlConfig.ts
+secret_key.ts
