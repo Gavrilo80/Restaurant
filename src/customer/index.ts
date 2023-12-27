@@ -1,6 +1,7 @@
 import { Router, request, response } from "express";
 import blacklistedTokens from "../controllers/blackkistedToken";
-import CustomerRoutes from "./orders";
+import OrdersRoutes from "./orders";
+import CustomerRoutes from "./cutomer";
 import Customer from "../models/Customer";
 
 const router = Router();
@@ -20,7 +21,8 @@ router.delete("/deleteAccount", async (req: request, res: response) => {
 })
 
 
-router.use("/order", CustomerRoutes);
+router.use("/order", OrdersRoutes);
+router.use("/customer", CustomerRoutes);
 // add other routes...
 
 export default router
