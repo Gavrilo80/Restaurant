@@ -19,6 +19,22 @@ router.get("/", async (req: request, res: response) => {
   })
 });
 
+
+router.get("/search", async (req: request, res: response) => {
+  const { limit, page } = req.query
+
+  const parsedPage = parseInt(page)
+  const parsedLimit = parseInt(limit)
+  let offset = 0
+  const customer = await Customer.findAndCountAll({
+    limit: parsedLimit,
+    offset: parsedPage ? (parsedPage - 1) * parsedLimit : offset,
+    order: ["id"],
+  })
+
+  res.json(customer)
+})
+
 router.post("/", async (req: request, res: response) => {
   res.json({
     message: "Admin create",
