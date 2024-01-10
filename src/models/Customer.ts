@@ -20,6 +20,10 @@ const Customer = connection.define(
     },
     phone: {
       type: DataTypes.STRING,
+    },
+    roles: {
+      type: DataTypes.ENUM("user", "admin", "customer"),
+      defaultValue: "customer"
     }
   },
   {
