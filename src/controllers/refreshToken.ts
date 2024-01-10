@@ -16,9 +16,13 @@ const refreshToken = async (req, res) => {
     if (oldToken) return res.status(403).send('Forbidden');
 
     // Verify token
-    const visitor = jwt.verify(refresh, secret_key);
+    const customer = jwt.verify(refresh, secret_key);
     // Create new token
-    const { token } = createToken({ user_id: visitor.user_id, email: visitor.email });
+    const { token } = createToken({
+      user_id: customer.user_id,
+      email: customer.email,
+      roles: customer.roles
+    });
     res.json({ token });
   } catch (error) {
     return res.status(401).send("Invalid Token");
