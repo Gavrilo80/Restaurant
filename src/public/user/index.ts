@@ -23,7 +23,7 @@ router.post("/login", async (req: request, res: response) => {
     if (customer && (await bcrypt.compare(password, customer.password))) {
 
       //create token and refreshToken        
-      const { token, refresh_token } = createToken({ user_id: customer.id, email });
+      const { token, refresh_token } = createToken({ user_id: customer.id, email, roles: customer.roles });
 
       const result = { token, refresh_token };
       // Visitor

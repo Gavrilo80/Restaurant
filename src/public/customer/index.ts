@@ -1,5 +1,6 @@
 import { Router, request, response } from "express";
 import Customer from "../../models/Customer";
+import FoodMenu from "../../models/FoodMenu";
 import createToken from "../../controllers/createToken";
 import bcrypt from "bcryptjs";
 import { regex } from "../../controllers/secret_key";
@@ -12,6 +13,11 @@ router.get("/", (req: request, res: response) => {
     message: "Wecome to our site! We are glad you are here with us! For more information please register or log in. Thank You"
   })
 });
+
+router.get("/foodmenu", async (req: request, res: response) => {
+  const food_menu = await FoodMenu.findAll()
+  res.json(food_menu)
+})
 
 
 
@@ -49,14 +55,15 @@ router.post("/register", async (req: request, res: response) => {
     console.log(customer);
 
     // Create token for Visitor
-    const { token, refresh_token } = createToken({ user_id: customer.id, email })
+    const { token, refresh_token } = createToken({ user_id: customer.id, email, roles: customer.roles })
 
     // Save Visitor and Token in our DataBase
     const result = {
       ...{
         username: customer.username,
         email: customer.email,
-        phone: customer.phone
+        phone: customer.phone,
+        roles: customer.roles
       }, ...{ token, refresh_token }
     }
 
@@ -91,7 +98,7 @@ router.post("/login", async (req: request, res: response) => {
     if (customer && (await bcrypt.compare(password, customer.password))) {
 
       //create token and refreshToken        
-      const { token, refresh_token } = createToken({ user_id: customer.id, email });
+      const { token, refresh_token } = createToken({ user_id: customer.id, email, roles: customer.roles });
 
       const result = { token, refresh_token };
       // Visitor
