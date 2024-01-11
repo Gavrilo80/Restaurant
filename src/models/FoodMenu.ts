@@ -1,16 +1,15 @@
 import { connection, DataTypes } from "../../dbConfig/connection";
 
-const Orders = connection.define(
-  "orders",
+const FoodMenu = connection.define(
+  "foodMenu",
   {
     // Model attributes are defined here
-    total_ammount: {
+    food_name: {
+      type: DataTypes.STRING
+    },
+    price: {
       type: DataTypes.FLOAT
     }
-  },
-  {
-    // Other model options go here
-  }
-);
+  })
 
-export default Orders;
+export default FoodMenu

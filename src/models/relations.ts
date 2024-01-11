@@ -1,6 +1,8 @@
 import Customer from "./Customer";
 import Orders from "./Orders";
 import Reward from "./Reward";
+import FoodMenu from "./FoodMenu";
+import FoodmenuOrders from "./FoodmenuOrders";
 
 async function setModelRelations() {
   try {
@@ -9,6 +11,9 @@ async function setModelRelations() {
 
     Reward.hasMany(Orders);
     Orders.belongsTo(Reward);
+
+    FoodMenu.belongsToMany(Orders, { through: FoodmenuOrders })
+    Orders.belongsToMany(FoodMenu, { through: FoodmenuOrders })
 
     console.log("✅ Model realtions set.");
   } catch (error) {
