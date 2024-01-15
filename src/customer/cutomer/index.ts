@@ -11,13 +11,8 @@ router.get("/", async (req: request, res: response) => {
   res.json(customer)
 })
 
-
-router.get("/:id", async (req: request, res: response) => {
-  const customer = await Customer.findOne({
-    where: { id: req.params.id }
-  })
-
-  res.json(customer)
+router.put("/:id", async (req: request, res: response) => {
+  res.json("everything updated Successfully!")
 })
 
 

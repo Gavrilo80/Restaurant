@@ -63,17 +63,10 @@ router.post("/", async (req: request, res: response) => {
 })
 
 
-router.put("/:id", async (req: request, res: response) => {
-  const { food_menu, drink_menu, total_ammount } = req.body;
-
-  // The case where it is changed via the catering id
-  const orders = await Orders.update({ food_menu, drink_menu, total_ammount }, {
-    where: {
-      customerId: req.authEntety.user_id
-    }
+router.put("/", async (req: request, res: response) => {
+  res.json({
+    message: "Our order is Updated!",
   })
-
-  res.json({ message: "Our order is Updated!", orders })
 })
 
 
